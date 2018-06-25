@@ -6,7 +6,7 @@
 <?php include RAIZ."/core/templates/menu.php"; ?>
 <main>
     <h1>Produtos</h1>
-    <a href="produto.php">Adicionar</a>
+    <a href="produto.php">Incluir</a>
 </main>
 </body>
 </html>
