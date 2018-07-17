@@ -1,10 +1,28 @@
 <?php include "../inicia.php"; ?>
 
 <?php
+$codigo = null;
 $nome = null;
 $descricao = null;
 $quantidade = null;
 $preco = null;
+if (isset($_GET['codigo'])) {
+    $codigo = intval($_GET['codigo']);
+    $c = conecta();
+    $query = 'SELECT nome, descricao, quantidade, preco FROM produto WHERE codigo = ?';
+    $com = $c->prepare($query);
+    $com->bind_param('i', $_GET['codigo']);
+    $com->execute();
+    $r = $com->get_result();
+    $produto = $r->fetch_assoc();
+    if (!$produto) {
+        header('Location: produtos.php');
+    }
+    $nome = $produto['nome'];
+    $descricao = $produto['descricao'];
+    $quantidade = $produto['quantidade'];
+    $preco = $produto['preco'];
+}
 if (isset($_SESSION['produto']) && isset($_GET['p'])) {
     $nome = $_SESSION['produto']['nome'];
     $descricao = $_SESSION['produto']['descricao'];
@@ -42,6 +60,7 @@ if (isset($_SESSION['produto']) && isset($_GET['p'])) {
     <?php erro() ?>
 
     <form action="salva.php" method="post">
+        <input type="hidden" name="codigo" value="<?= $codigo ?>">
         <div class="campo">
             <label for="nome">Nome: </label>
             <input type="text" name="nome" id="nome" value="<?= $nome ?>">
@@ -59,9 +78,9 @@ if (isset($_SESSION['produto']) && isset($_GET['p'])) {
             <input type="text" name="preco" id="preco" value="<?= $preco ?>">
         </div>
         <input type="submit" value="Salvar">
+        <input type="button" value="Voltar" onclick="produtos()">
     </form>
-
-
 </main>
+<script src="produto.js"></script>
 </body>
 </html>

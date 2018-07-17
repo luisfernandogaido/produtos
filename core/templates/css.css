@@ -58,7 +58,7 @@ form input {
     line-height: 2rem;
 }
 
-input[type=submit] {
+input[type=submit], input[type=button] {
     padding: 0 1rem;
 }
 
@@ -76,4 +76,20 @@ textarea {
     color: #d50000;
     margin-bottom: 1rem;
     font-weight: bold;
+}
+
+table {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+
+table tr th, table tr td {
+    border: 1px solid #888;
+    padding: 0.25rem;
+}
+
+table tr td.numero {
+    text-align: right;
 }
